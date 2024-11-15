@@ -7,13 +7,22 @@ public class Deck {
 
 
     public Deck() {
-        char[] suits = {'c','s','h','d'};
-        int[] val= {2,3,4,5,6,7,8,9,10,10,10,10,11};
-        char[] face =  {'j','q','k','a'};
+        char[] suits = {'♣','♠','♦','♥'};
+        int[] val= {2,3,4,5,6,7,8,9,10,110,210,310,511};
+        char[] face =  {'J','q','k','a'};
         for (char suit : suits) {
             for (int i : val) {
-
-                OGPile.add(new Card(i, suit));
+                if (i == 110) {
+                    OGPile.add(new Card(10, suit,'J'));
+                } else if (i == 210) {
+                    OGPile.add(new Card(10, suit,'Q'));
+                } else if (i == 310) {
+                    OGPile.add(new Card(10, suit,'K'));
+                } else if (i == 511) {
+                    OGPile.add(new Card(11, suit,'A'));
+                } else {
+                    OGPile.add(new Card(i, suit,'n'));
+                }
             }
             ;
         }
@@ -32,7 +41,7 @@ public class Deck {
         }
     }
 
-    public List<Card> drawCard(int numeberOfDraw) {
+    public List<Card> drawCards(int numeberOfDraw) {
         List<Card> drawnCards = new ArrayList<>();
         for (int i = 0; i < numeberOfDraw; i++) {
             Card y;
@@ -44,6 +53,13 @@ public class Deck {
         }
         return drawnCards;
     }
-
+    public Card drawCard() {
+        Card y;
+        int x = (int) (Math.random() * drawPile.size());
+        discardPile.add(drawPile.get(x));
+        y = drawPile.get(x);
+        drawPile.remove(x);
+        return y;
+    }
 
 }
