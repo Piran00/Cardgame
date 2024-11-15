@@ -7,5 +7,8 @@ public class Main {
     List<Card> hand = deck.drawCards(2);
     System.out.println( hand.get(1).suit);
     deck.drawCard().DisplayCard();
+    Blackjack game =new Blackjack(5);
+        game.gameStart();
+        System.out.println(game.playerHandValue);
         }
     }

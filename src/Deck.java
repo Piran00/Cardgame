@@ -4,6 +4,7 @@ public class Deck {
     List<Card> OGPile = new ArrayList<>();
     List<Card> drawPile = new ArrayList<>();
     List<Card> discardPile = new ArrayList<>();
+    List<Card> handPile = new ArrayList<>();
 
 
     public Deck() {
@@ -42,6 +43,7 @@ public class Deck {
     }
 
     public List<Card> drawCards(int numeberOfDraw) {
+        handPile = new ArrayList<>();
         List<Card> drawnCards = new ArrayList<>();
         for (int i = 0; i < numeberOfDraw; i++) {
             Card y;
@@ -51,15 +53,20 @@ public class Deck {
             drawPile.remove(x);
             drawnCards.add(y);
         }
+        handPile.addAll(drawnCards);
+
         return drawnCards;
     }
     public Card drawCard() {
+        handPile = new ArrayList<>();
         Card y;
         int x = (int) (Math.random() * drawPile.size());
         discardPile.add(drawPile.get(x));
         y = drawPile.get(x);
         drawPile.remove(x);
+        handPile.add(y);
         return y;
     }
+
 
 }
