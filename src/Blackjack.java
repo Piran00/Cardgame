@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 public class Blackjack {
     List<Card> dealerHand;
+    Card placeholderCard;
     List<Card> playerHand;
     int playerHandValue;
     int dealerHandValue;
@@ -19,7 +20,7 @@ public class Blackjack {
         this.betAmount = betAmount;
         dealerHand = new ArrayList<>();
         playerHand = new ArrayList<>();
-
+        placeholderCard = new Card(0,'?','n');
 
         deck = new Deck();
     }
@@ -42,10 +43,10 @@ public class Blackjack {
     public void gameTurn() {
         clearScreen();
         System.out.println("Your hand");
-        printPlayerHand();
+        printPlayerHand(playerHand);
         System.out.println("Dealer hand");
         dealerHand.get(0).DisplayCard();
-
+        placeholderCard.DisplayCard();
         System.out.println("Stand(s) or hit(h)");
 
 
@@ -57,10 +58,10 @@ public class Blackjack {
 
             updateVals();
 
-            printPlayerHand();
+            printPlayerHand(playerHand);
             if( playerHandValue > 21) {
                 clearScreen();
-                printPlayerHand();
+                printPlayerHand(playerHand);
                 System.out.println("You loose");
                 System.exit(0);
             }
@@ -78,15 +79,26 @@ public class Blackjack {
         playerHandValue = countCards(playerHand);
 
     }
-    public void printPlayerHand() {
-        for (Card card : playerHand) {
+    public void printPlayerHand(List<Card> hand) {
+        for (Card card : hand) {
             card.DisplayCard();
         }
     }
 
 
     public void endGameTurn() {
-
+        updateVals();
+        System.out.println("Your hand");
+        printPlayerHand(playerHand);
+        System.out.println("___________________");
+        System.out.println("Dealer hand");
+        printPlayerHand(dealerHand);
+        if (dealerHandValue > playerHandValue) {
+            System.out.println("you loose");
+        }
+        else if (playerHandValue > dealerHandValue) {
+            System.out.println("you win");
+        }
     }
 
 
