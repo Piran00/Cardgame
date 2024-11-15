@@ -87,6 +87,7 @@ public class Blackjack {
 
 
     public void endGameTurn() {
+        clearScreen();
         updateVals();
         System.out.println("Your hand");
         printPlayerHand(playerHand);
