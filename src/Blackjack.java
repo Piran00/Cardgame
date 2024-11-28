@@ -41,12 +41,7 @@ public class Blackjack {
     }
 
     public void gameTurn() {
-        clearScreen();
-        System.out.println("Your hand");
-        printPlayerHand(playerHand);
-        System.out.println("Dealer hand");
-        dealerHand.get(0).DisplayCard();
-        placeholderCard.DisplayCard();
+        print_gamehands(false);
         System.out.println("Stand(s) or hit(h)");
 
 
@@ -56,12 +51,9 @@ public class Blackjack {
         if (Objects.equals(output, "h")) {
             playerHand.add( deck.drawCard());
 
-            updateVals();
-
-            printPlayerHand(playerHand);
+            print_gamehands(false);
             if( playerHandValue > 21) {
-                clearScreen();
-                printPlayerHand(playerHand);
+                print_gamehands(true);
                 System.out.println("You loose");
                 System.exit(0);
             }
@@ -94,12 +86,13 @@ public class Blackjack {
         System.out.println("___________________");
         System.out.println("Dealer hand");
         printPlayerHand(dealerHand);
-        if (dealerHandValue > playerHandValue) {
+        if (playerHandValue > dealerHandValue ) {
             System.out.println("you loose");
         }
-        else if (playerHandValue > dealerHandValue) {
+        else if (playerHandValue < dealerHandValue) {
             System.out.println("you win");
         }
+        clearScreen();
     }
 
 
@@ -116,6 +109,32 @@ public class Blackjack {
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    public void print_gamehands(boolean show_dealer) {
+        clearScreen();
+        updateVals();
+        System.out.println("Your hand");
+        printPlayerHand(playerHand);
+        System.out.println("Dealer hand");
+        if (show_dealer) {
+        printPlayerHand(dealerHand);
+        }
+        else {
+            dealerHand.get(0).DisplayCard();
+            placeholderCard.DisplayCard();
+        }
+    }
+
+    public int Ace_check(List<Card> check_hand) {
+        int u = 0;
+        for (Card i : check_hand) {
+            if (i.val == 511) {
+                u ++;
+            }
+        }
+        return u;
+
     }
 
 
