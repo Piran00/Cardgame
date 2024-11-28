@@ -53,9 +53,14 @@ public class Blackjack {
 
             print_gamehands(false);
             if( playerHandValue > 21) {
-                print_gamehands(true);
-                System.out.println("You loose");
-                System.exit(0);
+              if(playerHandValue - (10 * Ace_check(playerHand)) <= 21) {
+                  endGameTurn();
+              }
+              else {
+                  print_gamehands(true);
+                  System.out.println("You loose");
+                  System.exit(0);
+              }
             }
             else {
                 gameTurn();
@@ -86,8 +91,9 @@ public class Blackjack {
         System.out.println("___________________");
         System.out.println("Dealer hand");
         printPlayerHand(dealerHand);
-        if (playerHandValue > dealerHandValue ) {
-            System.out.println("you loose");
+
+        if(playerHandValue - (10 * Ace_check(playerHand)) <= 21) {
+            System.out.println("You win");
         }
         else if (playerHandValue < dealerHandValue) {
             System.out.println("you win");
