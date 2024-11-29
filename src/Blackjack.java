@@ -92,11 +92,11 @@ public class Blackjack {
         System.out.println("Dealer hand");
         printPlayerHand(dealerHand);
 
-        if(playerHandValue - (10 * Ace_check(playerHand)) <= 21) {
+        if(playerHandValue - (10 * Ace_check(playerHand)) <= 21 && playerHandValue - (10 * Ace_check(playerHand)) > dealerHandValue) {
             System.out.println("You win");
         }
-        else if (playerHandValue < dealerHandValue) {
-            System.out.println("you win");
+        else {
+            System.out.println("You loose");
         }
         clearScreen();
     }
@@ -135,7 +135,7 @@ public class Blackjack {
     public int Ace_check(List<Card> check_hand) {
         int u = 0;
         for (Card i : check_hand) {
-            if (i.val == 511) {
+           if (i.val == 11) {
                 u ++;
             }
         }
