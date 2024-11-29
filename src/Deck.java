@@ -5,27 +5,31 @@ public class Deck {
     List<Card> drawPile = new ArrayList<>();
     List<Card> discardPile = new ArrayList<>();
     List<Card> handPile = new ArrayList<>();
-
+    int i;
 
     public Deck() {
         char[] suits = {'♣','♠','♦','♥'};
         int[] val= {2,3,4,5,6,7,8,9,10,110,210,310,511};
         char[] face =  {'J','q','k','a'};
-        for (char suit : suits) {
-            for (int i : val) {
-                if (i == 110) {
-                    OGPile.add(new Card(10, suit,'J'));
-                } else if (i == 210) {
-                    OGPile.add(new Card(10, suit,'Q'));
-                } else if (i == 310) {
-                    OGPile.add(new Card(10, suit,'K'));
-                } else if (i == 511) {
-                    OGPile.add(new Card(11, suit,'A'));
-                } else {
-                    OGPile.add(new Card(i, suit,'n'));
+        i = 0;
+        while (i < 4) {
+            for (char suit : suits) {
+                for (int i : val) {
+                    if (i == 110) {
+                        OGPile.add(new Card(10, suit, 'J'));
+                    } else if (i == 210) {
+                        OGPile.add(new Card(10, suit, 'Q'));
+                    } else if (i == 310) {
+                        OGPile.add(new Card(10, suit, 'K'));
+                    } else if (i == 511) {
+                        OGPile.add(new Card(11, suit, 'A'));
+                    } else {
+                        OGPile.add(new Card(i, suit, 'n'));
+                    }
                 }
+                ;
             }
-            ;
+            i++;
         }
         ;
         drawPile = OGPile;

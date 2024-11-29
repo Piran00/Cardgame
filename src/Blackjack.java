@@ -29,6 +29,7 @@ public class Blackjack {
     }
 
     public void gameStart() {
+        hasDoubled = false;
         dealerHand.addAll(deck.drawCards(2));
         dealerHandValue = countCards(dealerHand);
         playerHand.addAll(deck.drawCards(2));
@@ -68,8 +69,7 @@ public class Blackjack {
                     else {
                         print_gamehands(true);
                         System.out.println("You loose");
-                        System.exit(0);
-                    }
+                    endSession();                    }
                 }
                 else {
                     gameTurn();
@@ -95,7 +95,7 @@ public class Blackjack {
                     else {
                         print_gamehands(true);
                         System.out.println("You loose");
-                        System.exit(0);
+                        endSession();
                     }
                 }
                 else {
@@ -136,14 +136,16 @@ public class Blackjack {
         printPlayerHand(dealerHand);
         if (trueDealerHandValue > 21){
             System.out.println("You win");
+            endSession();
         }
-        if(playerHandValue - (10 * Ace_check(playerHand)) <= 21 && playerHandValue - (10 * Ace_check(playerHand)) > trueDealerHandValue) {
+        else if(playerHandValue - Ace_check(playerHand) <= 21 && playerHandValue - Ace_check(playerHand) > trueDealerHandValue) {
             System.out.println("You win");
+            endSession();
         }
         else {
             System.out.println("You loose");
+            endSession();
         }
-        clearScreen();
     }
 
 
@@ -186,7 +188,7 @@ public class Blackjack {
                 u ++;
             }
         }
-        return u;
+        return u * 10;
 
     }
 
@@ -198,7 +200,7 @@ public class Blackjack {
        }
        updateVals();
        if (dealerHandValue > 21) {
-           trueDealerHandValue = dealerHandValue - (10 * Ace_check(dealerHand));
+           trueDealerHandValue = dealerHandValue - Ace_check(dealerHand);
        }
        else {
            trueDealerHandValue = dealerHandValue;
@@ -206,6 +208,22 @@ public class Blackjack {
        if (trueDealerHandValue <= 17){
            dealerTurn();
        }
+
+    }
+
+    public List<Card> discardHand(List<Card> handToDiscard){
+        handToDiscard = new ArrayList<>();
+        return handToDiscard;
+
+    }
+
+    public void endSession(){
+       playerHand = discardHand(playerHand);
+       dealerHand = discardHand(dealerHand);
+        updateVals();
+        clearScreen();
+
+        gameStart();
 
     }
 
