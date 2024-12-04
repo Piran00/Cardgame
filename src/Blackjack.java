@@ -17,7 +17,8 @@ public class Blackjack {
     int turnTimer;
     boolean hasDoubled;
     int trueDealerHandValue;
-
+    int loseCounter;
+    int winCounter;
     public Blackjack(int betAmount) {
         this.betAmount = betAmount;
         dealerHand = new ArrayList<>();
@@ -26,6 +27,8 @@ public class Blackjack {
         turnTimer = 0;
         deck = new Deck();
         hasDoubled = false;
+        loseCounter = 0;
+        winCounter =0;
     }
 
     public void gameStart() {
@@ -47,11 +50,10 @@ public class Blackjack {
     public void gameTurn() {
         print_gamehands(false);
         if (turnTimer == 0) {
-            System.out.println("(s)tand or (h)it or (d)ouble");
+            String message = String.format("(s)tand or (h)it or (d)ouble\n Games won: %d    Games lost: %d",winCounter,loseCounter);
+            System.out.println(message);
 
         }
-        System.out.println("Stand(s) or hit(h)");
-
 
         output = scanner.nextLine();
 
@@ -69,7 +71,7 @@ public class Blackjack {
                     else {
                         print_gamehands(true);
                         System.out.println("You loose");
-                    endSession();                    }
+                        loseSession();                }
                 }
                 else {
                     gameTurn();
@@ -95,7 +97,7 @@ public class Blackjack {
                     else {
                         print_gamehands(true);
                         System.out.println("You loose");
-                        endSession();
+                        loseSession();
                     }
                 }
                 else {
@@ -136,15 +138,14 @@ public class Blackjack {
         printPlayerHand(dealerHand);
         if (trueDealerHandValue > 21){
             System.out.println("You win");
-            endSession();
-        }
+            winSession();        }
         else if(playerHandValue - Ace_check(playerHand) <= 21 && playerHandValue - Ace_check(playerHand) > trueDealerHandValue) {
             System.out.println("You win");
-            endSession();
+            winSession();
         }
         else {
             System.out.println("You loose");
-            endSession();
+            loseSession();
         }
     }
 
@@ -218,14 +219,38 @@ public class Blackjack {
     }
 
     public void endSession(){
+        updateVals();
+        clearScreen();
+        print_gamehands(true);
+        w8();
+        clearScreen();
        playerHand = discardHand(playerHand);
        dealerHand = discardHand(dealerHand);
         updateVals();
-        clearScreen();
+        turnTimer = 0;
 
         gameStart();
 
     }
+
+    public void winSession(){
+        winCounter ++;
+        endSession();
+    }
+
+    public void loseSession(){
+        loseCounter ++;
+        endSession();
+    }
+
+    public void w8(){
+        try {
+            Thread.sleep(5000); // Pause for 3000 milliseconds (3 seconds)
+        } catch (InterruptedException e) {
+            e.printStackTrace(); // Handle any interruption exceptions
+        }
+    }
+
 
 
 
