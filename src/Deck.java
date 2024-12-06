@@ -7,12 +7,13 @@ public class Deck {
     List<Card> handPile = new ArrayList<>();
     int i;
 
-    public Deck() {
+
+    public Deck(int n) {
         char[] suits = {'♣','♠','♦','♥'};
         int[] val= {2,3,4,5,6,7,8,9,10,110,210,310,511};
         char[] face =  {'J','q','k','a'};
         i = 0;
-        while (i < 4) {
+        while (i < n) {
             for (char suit : suits) {
                 for (int i : val) {
                     if (i == 110) {

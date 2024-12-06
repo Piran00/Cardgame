@@ -25,7 +25,7 @@ public class Blackjack {
         playerHand = new ArrayList<>();
         placeholderCard = new Card(0,'?','n');
         turnTimer = 0;
-        deck = new Deck();
+        deck = new Deck(4);
         hasDoubled = false;
         loseCounter = 0;
         winCounter =0;
